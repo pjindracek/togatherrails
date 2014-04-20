@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140420173446) do
+ActiveRecord::Schema.define(version: 20140420213952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,17 +44,19 @@ ActiveRecord::Schema.define(version: 20140420173446) do
   create_table "groups", force: true do |t|
     t.string   "name"
     t.text     "motto"
-    t.integer  "administrator_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "groups_users", id: false, force: true do |t|
-    t.integer "group_id"
-    t.integer "user_id"
+  create_table "memberships", force: true do |t|
+    t.integer  "group_id"
+    t.integer  "user_id"
+    t.boolean  "admin"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "groups_users", ["group_id", "user_id"], name: "by_group_id_user_id", unique: true, using: :btree
+  add_index "memberships", ["group_id", "user_id"], name: "by_group_id_user_id", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "bio"

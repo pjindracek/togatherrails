@@ -1,6 +1,6 @@
 class Group < ActiveRecord::Base
-  belongs_to :administrator, :foreign_key => 'administrator_id', :class_name => 'User'
-  has_and_belongs_to_many :users, -> { uniq }
+  has_many :memberships
+  has_many :users, through: :memberships, source: :user
   has_many :comments
   has_many :events
 
@@ -12,5 +12,11 @@ class Group < ActiveRecord::Base
     rescue ActiveRecord::RecordNotUnique
       false
     end
+  end
+
+  def admin(user)
+    membership = memberships.find_by user: user
+    membership.admin= true
+    membership.save
   end
 end
