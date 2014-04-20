@@ -1,4 +1,12 @@
 Togather::Application.routes.draw do
+
+  root to: 'welcome#index'
+  resources :users, :only => [:new, :create, :edit, :update]
+  resource :session, :only => [:new, :create, :destroy]
+  get 'user', to: 'users#profile', as: 'profile'
+  get '/login', to: 'sessions#new', as: 'login'
+  get '/logout', to: 'sessions#destroy', as: 'logout'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

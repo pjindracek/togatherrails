@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="850856533">
+    <data-source source="LOCAL" name="Rails togather: development" uuid="b29c57dc-32b9-4473-9b67-3e71ab0ea0ab">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1:5432/togather_rails</jdbc-url>
+      <user-name>postgres</user-name>
+      <user-password>dfc2dfcfdfd9dfc6dfc5</user-password>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+

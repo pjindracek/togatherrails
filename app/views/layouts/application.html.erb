@@ -8,6 +8,23 @@
 </head>
 <body>
 
+<% if notice %>
+    <p class="alert alert-success"><%= notice %></p>
+<% end %>
+<% if alert %>
+    <p class="alert alert-danger"><%= alert %></p>
+<% end %>
+
+<p>
+<% if authenticated? %>
+  <%= current_user.name %>
+  <%= link_to 'Logout', logout_path %>
+<% else %>
+  <%= link_to 'Login', login_path %>
+  <%= link_to 'Sign in', new_user_path %>
+<% end %>
+</p>
+
 <%= yield %>
 
 </body>
