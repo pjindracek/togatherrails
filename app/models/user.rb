@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable
 
-  has_many :groups
+  has_many :administrated_groups, :foreign_key => 'administrator_id', :class_name => 'Group'
   has_and_belongs_to_many :groups, -> { uniq }
   has_many :comments
   has_and_belongs_to_many :events
@@ -17,4 +17,11 @@ class User < ActiveRecord::Base
     encrypted_password.blank? || password.present?
   end
 
+  def all_user_groups
+    groups + administrated_groups
+  end
+
+  def add_group(group)
+    groups << group
+  end
 end

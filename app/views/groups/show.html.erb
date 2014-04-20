@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Name:</strong>
   <%= @group.name %>
@@ -10,5 +8,6 @@
   <%= @group.motto %>
 </p>
 
-<%= link_to 'Edit', edit_group_path(@group) %> |
-<%= link_to 'Back', groups_path %>
+<p>
+  <%= link_to 'Add me to the group!', register_path, method: :post %>
+</p>

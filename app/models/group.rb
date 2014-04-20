@@ -4,5 +4,13 @@ class Group < ActiveRecord::Base
   has_many :comments
   has_many :events
 
+  validate :name, presence: true
 
+  def add_user(user)
+    begin
+      users << user
+    rescue ActiveRecord::RecordNotUnique
+      false
+    end
+  end
 end
