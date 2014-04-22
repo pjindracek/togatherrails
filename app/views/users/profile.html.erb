@@ -1,17 +1,20 @@
 <h2>Profile of user <strong><%= current_user.name %></strong></h2>
-<ul>
-<li><%= link_to 'Edit profile', edit_user_registration_path %></li>
-<li><%= link_to 'Set up new group', new_group_path %></li>
-</ul>
 
-<div>
-  <h3>Administrated groups:</h3>
-  <ul>
-      <% @groups_admin.each do |group| %>
-        <li><%= link_to group.name, group %></li>
-      <% end %>
-  </ul>
-</div>
+<% unless @public_user %>
+    <ul>
+      <li><%= link_to 'Edit profile', edit_user_registration_path %></li>
+      <li><%= link_to 'Set up new group', new_group_path %></li>
+    </ul>
+
+    <div>
+      <h3>Administrated groups:</h3>
+      <ul>
+        <% @groups_admin.each do |group| %>
+            <li><%= link_to group.name, group %></li>
+        <% end %>
+      </ul>
+    </div>
+<% end %>
 
 <div>
   <h3>All groups:</h3>
