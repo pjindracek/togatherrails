@@ -17,8 +17,8 @@ class GroupsController < ApplicationController
 
   def create
     @group = Group.new(group_params)
-    @group.admin= current_user
     if @group.save
+      @group.admin= current_user
       redirect_to @group, notice: 'Group was successfully created.'
     else
       render action: 'new'
@@ -52,6 +52,10 @@ class GroupsController < ApplicationController
   def unregister
     @group.remove_user current_user
     redirect_to profile_path, notice: "You've just left #{@group.name}"
+  end
+
+  def search
+    @groups = Group.search(params[:q])
   end
 
   private

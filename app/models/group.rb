@@ -1,13 +1,13 @@
 class Group < ActiveRecord::Base
-  has_many :memberships
+  has_many :memberships, dependent: :delete_all
   has_many :users, through: :memberships, source: :user
-  has_many :comments
-  has_many :events
+  has_many :comments, dependent: :delete_all
+  has_many :events, dependent: :delete_all
 
   validate :name, presence: true
 
   def add_user(user)
-      users << user
+    users << user
   end
 
   def remove_user(user)
@@ -38,5 +38,18 @@ class Group < ActiveRecord::Base
 
   def current_events
     events.where("events.end > ?", Time.now)
+  end
+
+  def past_events
+    events.where("events.end < ?", Time.now)
+  end
+
+  def self.search(query)
+    if query
+      query= "%#{query}%"
+      Group.where('groups.name LIKE ? OR groups.motto LIKE ?', query, query)
+    else
+      nil
+    end
   end
 end

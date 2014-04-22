@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!, :load_group
-  before_action :add_event, only: [:show, :edit, :update, :destroy]
+  before_action :add_event, except: [:new, :create]
 
   def show
   end
@@ -33,6 +33,22 @@ class EventsController < ApplicationController
   def destroy
     @event.destroy
     redirect_to group_path(params[:group_id]), notice: 'Event was deleted.'
+  end
+
+  def register
+    if @event.users << current_user
+      redirect_to group_event_path(group_id: @group, id: @event),
+                  notice: "Yay! You were added to the event #{@event.title}."
+    else
+      redirect_to group_event_path(group_id: @group, id: @event),
+                  alert: "Error occurred. You are already registered for event #{@event.title}!"
+    end
+  end
+
+  def unregister
+    @event.users.delete current_user
+    redirect_to group_event_path(group_id: @group, id: @event),
+                notice: "You've left event #{@event.title}"
   end
 
   private

@@ -1,0 +1,11 @@
+<h3>Search results:</h3>
+<% if @groups.present? %>
+    <% @groups.each do |g| %>
+        <p><%= link_to g.name, g %></p>
+    <% end %>
+<% else %>
+    <p>We couldn't find any group based on your query but try out some of our other groups below!</p>
+    <% Group.last(10).each do |g| %>
+        <p><%= link_to g.name, g %></p>
+    <% end %>
+<% end %>

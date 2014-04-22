@@ -2,6 +2,15 @@
 <p>Find me in app/views/welcome/index.html.erb</p>
 
 <div>
+  <%= form_tag search_path, :method => 'get' do %>
+      <p>
+        <%= text_field_tag :q %>
+        <%= submit_tag 'Search', :name => nil %>
+      </p>
+  <% end %>
+</div>
+
+<div>
   <h3>Groups</h3>
   <ul>
     <% @groups.last(3).each do |group| %>

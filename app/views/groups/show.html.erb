@@ -43,6 +43,7 @@
 
 <h3>Events:</h3>
 <% if @group.is_member? current_user %>
+    <p>Upcoming:</p>
     <% if @group.current_events.present? %>
         <ul>
           <% @group.current_events.each do |e| %>
@@ -51,6 +52,16 @@
         </ul>
     <% else %>
         There are no upcoming events.
+    <% end %>
+    <p>Past:</p>
+    <% if @group.past_events.present? %>
+        <ul>
+          <% @group.past_events.each do |e| %>
+              <li><%= link_to e.title, group_event_path(group_id: @group, id: e) %></li>
+          <% end %>
+        </ul>
+    <% else %>
+        There are no past events.
     <% end %>
 <% else %>
     <p>Only members can see events of this group.</p>

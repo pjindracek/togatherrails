@@ -10,3 +10,11 @@
 <% if @event.group.is_admin? current_user %>
     <p><%= link_to 'Edit event', edit_group_event_path(group_id: @group, id: @event) %></p>
 <% end %>
+
+<p>
+  <% if !@event.is_user_attending? current_user %>
+      <%= link_to 'Join this event!', event_register_path(group_id: @group, id: @event), method: :post %>
+  <% else %>
+      <%= link_to 'Leave this event.', event_unregister_path(group_id: @group, id: @event), method: :post %>
+  <% end %>
+</p>
