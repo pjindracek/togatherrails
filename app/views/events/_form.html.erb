@@ -1,0 +1,33 @@
+<%= form_for([@group, @event]) do |f| %>
+    <% if @event.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@event.errors.count, "error") %> prohibited this comment from being saved:</h2>
+
+          <ul>
+            <% @event.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div>
+      <%= f.label :title %><br/>
+      <%= f.text_field :title %>
+    </div>
+    <div>
+      <%= f.label :beginning %><br/>
+      <%= f.datetime_select :beginning %>
+    </div>
+    <div>
+      <%= f.label :end %><br/>
+      <%= f.datetime_select :end %>
+    </div>
+    <div>
+      <%= f.label :description %><br/>
+      <%= f.text_area :description %>
+    </div>
+    <div>
+      <%= f.submit %>
+    </div>
+<% end %>

@@ -35,4 +35,8 @@ class Group < ActiveRecord::Base
     return false if user.blank?
     memberships.find_by(user: user).present?
   end
+
+  def current_events
+    events.where("events.end > ?", Time.now)
+  end
 end

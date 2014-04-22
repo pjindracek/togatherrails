@@ -1,0 +1,12 @@
+<h3>Event <%= @event.title %> of group <strong><%= @event.group.name %></strong></h3>
+
+<p>From: <%= @event.beginning.to_s(:short) %></p>
+<p>To: <%= @event.end.to_s(:short) %></p>
+
+<p>
+  <%= @event.description %>
+</p>
+
+<% if @event.group.is_admin? current_user %>
+    <p><%= link_to 'Edit event', edit_group_event_path(group_id: @group, id: @event) %></p>
+<% end %>

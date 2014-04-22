@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to @group, notice: 'Comment was added successfully'
     else
-      render @group
+      render template: 'groups/show'
     end
   end
 

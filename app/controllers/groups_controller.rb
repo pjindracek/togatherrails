@@ -16,15 +16,12 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @group = Group.create(group_params)
+    @group = Group.new(group_params)
     @group.admin= current_user
-
-    respond_to do |format|
-      if @group.save
-        format.html { redirect_to @group, notice: 'Group was successfully created.' }
-      else
-        format.html { render action: 'new' }
-      end
+    if @group.save
+      redirect_to @group, notice: 'Group was successfully created.'
+    else
+      render action: 'new'
     end
   end
 
@@ -32,20 +29,16 @@ class GroupsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @group.update(group_params)
-        format.html { redirect_to @group, notice: 'Group was successfully updated.' }
-      else
-        format.html { render action: 'edit' }
-      end
+    if @group.update(group_params)
+      redirect_to @group, notice: 'Group was successfully updated.'
+    else
+      render action: 'edit'
     end
   end
 
   def destroy
     @group.destroy
-    respond_to do |format|
-      format.html { redirect_to profile_url, notice: "You have deleted the group #{@group.name}." }
-    end
+    redirect_to profile_url, notice: "You have deleted the group #{@group.name}."
   end
 
   def register
