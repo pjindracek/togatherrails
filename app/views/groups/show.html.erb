@@ -9,6 +9,11 @@
 </p>
 
 <p>
+  <strong>Category:</strong>
+  <%= @group.category_label %>
+</p>
+
+<p>
   <% if !@group.is_member? current_user %>
       <%= link_to 'Add me to the group!', register_path, method: :post %>
   <% elsif !@group.is_admin? current_user %>

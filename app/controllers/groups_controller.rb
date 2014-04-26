@@ -3,16 +3,13 @@ class GroupsController < ApplicationController
   before_action :set_group_for_admin, only: [:edit, :update, :destroy]
   before_action :authenticate_user!
 
-  def index
-    @groups = Group.all
-  end
-
   def show
     @comment = Comment.new
   end
 
   def new
     @group = Group.new
+    @categories = CategoryEnum.categories
   end
 
   def create
@@ -26,6 +23,7 @@ class GroupsController < ApplicationController
   end
 
   def edit
+    @categories = CategoryEnum.categories
   end
 
   def update
@@ -69,7 +67,7 @@ class GroupsController < ApplicationController
   end
 
   def group_params
-    params.require(:group).permit(:name, :motto)
+    params.require(:group).permit(:name, :motto, :category)
   end
 
   def find_group_by_id
