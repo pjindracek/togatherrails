@@ -1,93 +1,90 @@
-<p>
-  <strong>Name:</strong>
-  <%= @group.name %>
-</p>
+<div class="container">
+  <div class="col-md-12">
+    <h1>
+      Group <strong><%= @group.name %></strong> <span class="label label-primary"><%= @group.category_label %></span>
+    </h1>
 
-<p>
-  <strong>Motto:</strong>
-  <%= @group.motto %>
-</p>
+    <p><%= @group.motto %></p>
+  </div>
 
-<p>
-  <strong>Category:</strong>
-  <%= @group.category_label %>
-</p>
+  <div class="col-md-3 left-menu">
+    <h2>Settings</h2>
 
-<p>
-  <% if !@group.is_member? current_user %>
-      <%= link_to 'Add me to the group!', register_path, method: :post %>
-  <% elsif !@group.is_admin? current_user %>
-      <%= link_to 'Leave group', unregister_path(@group), method: :post %>
-  <% else %>
-      <%= link_to 'Delete the group', @group, onclick: 'alert("Careful! You will delete the entire group!")', method: :delete %>
-  <% end %>
-</p>
+    <% if @group.is_admin? current_user %>
+        <p><%= link_to 'Edit group settings', edit_group_path(id: @group) %></p>
 
-<% if @group.is_admin? current_user %>
+        <p><%= link_to 'Create event', new_group_event_path(group_id: @group) %></p>
+    <% end %>
+    <% if !@group.is_member? current_user %>
+        <p><%= link_to 'Add me to the group!', register_path, method: :post %></p>
+    <% elsif !@group.is_admin? current_user %>
+        <p><%= link_to 'Leave group', unregister_path(@group), method: :post %></p>
+    <% else %>
+        <p><%= link_to 'Delete the group', @group, onclick: 'alert("Careful! You will delete the entire group!")', method: :delete %></p>
+    <% end %>
+
+    <h2>Members</h2>
+
     <p>
-      <%= link_to 'Edit group settings', edit_group_path %>
-    </p>
-    <p>
-      <%= link_to 'Create event', new_group_event_path(group_id: @group) %>
-    </p>
-<% end %>
-
-<h3>Members:</h3>
-<p>
-  <% if @group.is_member? current_user %>
-    <ul>
-      <% @group.users.each do |user| %>
-          <li><%= link_to user.name, user %></li>
-      <% end %>
-    </ul>
-<% else %>
-    Only members can see other members in this group.
-    <%= link_to 'Become a member!', register_path, method: :post %>
-<% end %>
-</p>
-
-<h3>Events:</h3>
-<% if @group.is_member? current_user %>
-    <p>Upcoming:</p>
-    <% if @group.current_events.present? %>
+      <% if @group.is_member? current_user %>
         <ul>
-          <% @group.current_events.each do |e| %>
-              <li><%= link_to e.title, group_event_path(group_id: @group, id: e) %></li>
+          <% @group.users.each do |user| %>
+              <li><%= link_to user.name, user %></li>
           <% end %>
         </ul>
     <% else %>
-        There are no upcoming events.
+        Only members can see other members in this group.
+        <%= link_to 'Become a member!', register_path, method: :post %>
     <% end %>
-    <p>Past:</p>
-    <% if @group.past_events.present? %>
-        <ul>
-          <% @group.past_events.each do |e| %>
-              <li><%= link_to e.title, group_event_path(group_id: @group, id: e) %></li>
-          <% end %>
-        </ul>
+    </p>
+
+    <h2>Events</h2>
+    <% if @group.is_member? current_user %>
+        <h3>Upcoming</h3>
+        <% if @group.current_events.present? %>
+            <ul>
+              <% @group.current_events.each do |e| %>
+                  <li><%= link_to e.title, group_event_path(group_id: @group, id: e) %></li>
+              <% end %>
+            </ul>
+        <% else %>
+            There are no upcoming events.
+        <% end %>
+        <h3>Past</h3>
+        <% if @group.past_events.present? %>
+            <ul>
+              <% @group.past_events.each do |e| %>
+                  <li><%= link_to e.title, group_event_path(group_id: @group, id: e) %></li>
+              <% end %>
+            </ul>
+        <% else %>
+            There are no past events.
+        <% end %>
     <% else %>
-        There are no past events.
+        <p>Only members can see events of this group.</p>
     <% end %>
-<% else %>
-    <p>Only members can see events of this group.</p>
-<% end %>
 
-<hr/>
+  </div>
 
-<h3>Discussion</h3>
-<% if @group.is_member? current_user %>
-    <%= render file: 'comments/_form' %>
-    <% @group.comments.each do |c| %>
-        <div>
-          <p><%= link_to c.user.name, c.user %></p>
-
-          <p><%= c.created_at.to_s(:short) %></p>
-
-          <p><%= c.title %></p>
-
-          <p><%= c.message %></p>
-        </div>
+  <div class="col-md-6">
+    <h2>Board</h2>
+    <% if @group.is_member? current_user %>
+        <%= render file: 'comments/_form' %>
+        <hr/>
+        <% @group.comments.each do |c| %>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <%= c.title %>
+                <span class="pull-right">, <%= c.created_at.to_s(:long) %> </span>
+                <span class="pull-right">by <%= link_to c.user.name, c.user %></span>
+              </div>
+              <div class="panel-body">
+                <p><%= c.message %></p>
+              </div>
+            </div>
+        <% end %>
+    <% else %>
+        <p>Discussion only for members.</p>
     <% end %>
-<% else %>
-    <p>Discussion only for members.</p>
-<% end %>
+  </div>
+</div>

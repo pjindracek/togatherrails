@@ -3,9 +3,11 @@ class UsersController < ApplicationController
 
   def profile
     if params[:id].present?
-      @public_user = User.find(params[:id])
+      @user = User.find(params[:id])
+      @public_user = true
     else
-      @groups_all = current_user.groups
+      @user = current_user
+      @public_user = false
       @groups_admin = current_user.administrated_groups
     end
   end

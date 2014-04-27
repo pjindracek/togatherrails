@@ -1,31 +1,39 @@
-<%= form_for(@group) do |f| %>
-    <% if @group.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
+<div class="container">
+  <%= form_for(@group, html: {class: 'form-horizontal'}) do |f| %>
+      <% if @group.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
 
-          <ul>
-            <% @group.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-            <% end %>
-          </ul>
+            <ul>
+              <% @group.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+
+      <div class="form-group row">
+        <%= f.label :name, class: 'col-sm-2 control-label' %>
+        <div class="col-md-4">
+          <%= f.text_field :name, class: 'form-control' %>
         </div>
-    <% end %>
-
-    <div class="field">
-      <%= f.label :name %>
-      <br>
-      <%= f.text_field :name %>
-    </div>
-    <div class="field">
-      <%= f.label :motto %>
-      <br>
-      <%= f.text_area :motto %>
-    </div>
-    <div>
-      <%= f.label :category %><br/>
-      <%= f.select :category, options_for_select(@categories.collect {|c| [ c[:label], c[:symbol] ] }, selected: f.object.category) %>
-    </div>
-    <div class="actions">
-      <%= f.submit %>
-    </div>
-<% end %>
+      </div>
+      <div class="form-group row">
+        <%= f.label :motto, class: 'col-sm-2 control-label' %>
+        <div class="col-md-4">
+          <%= f.text_area :motto, class: 'form-control' %>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.label :category, class: 'col-sm-2 control-label' %>
+        <div class="col-md-4">
+          <%= f.select :category, options_for_select(@categories.collect { |c| [c[:label], c[:symbol]] }, selected: f.object.category), {}, {class: 'form-control'} %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-offset-2 col-md-4">
+          <%= f.submit class: 'btn btn-default' %>
+        </div>
+      </div>
+  <% end %>
+</div>

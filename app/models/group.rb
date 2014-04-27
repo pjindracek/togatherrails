@@ -4,7 +4,7 @@ class Group < ActiveRecord::Base
   has_many :comments, dependent: :delete_all
   has_many :events, dependent: :delete_all
 
-  validate :name, presence: true
+  validates :name, presence: true
 
   def category
     CategoryEnum[self[:category]] if self[:category].present?
@@ -15,7 +15,7 @@ class Group < ActiveRecord::Base
   end
 
   def category_label
-    CategoryEnum.label self.category
+    CategoryEnum.label self.category if self.category.present?
   end
 
   def add_user(user)
@@ -63,5 +63,9 @@ class Group < ActiveRecord::Base
     else
       nil
     end
+  end
+
+  def members_count
+    self.memberships.count
   end
 end

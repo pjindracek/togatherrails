@@ -1,20 +1,40 @@
-<h3>Event <%= @event.title %> of group <strong><%= @event.group.name %></strong></h3>
+<div class="container">
+  <h1>Event <strong><%= @event.title %></strong> of group <strong><%= @event.group.name %></strong></h1>
 
-<p>From: <%= @event.beginning.to_s(:short) %></p>
-<p>To: <%= @event.end.to_s(:short) %></p>
-
-<p>
-  <%= @event.description %>
-</p>
-
-<% if @event.group.is_admin? current_user %>
-    <p><%= link_to 'Edit event', edit_group_event_path(group_id: @group, id: @event) %></p>
-<% end %>
-
-<p>
-  <% if !@event.is_user_attending? current_user %>
-      <%= link_to 'Join this event!', event_register_path(group_id: @group, id: @event), method: :post %>
-  <% else %>
-      <%= link_to 'Leave this event.', event_unregister_path(group_id: @group, id: @event), method: :post %>
+  <% if @event.group.is_admin? current_user %>
+      <p><%= link_to 'Edit event', edit_group_event_path(group_id: @group, id: @event) %></p>
   <% end %>
-</p>
+
+  <p>
+    <% if !@event.is_user_attending? current_user %>
+        <%= link_to 'Join this event!', event_register_path(group_id: @group, id: @event), method: :post %>
+    <% else %>
+        <%= link_to 'Leave this event.', event_unregister_path(group_id: @group, id: @event), method: :post %>
+    <% end %>
+  </p>
+
+  <h2>From</h2>
+
+  <p><%= @event.beginning.to_s(:long) %></p>
+
+  <h2>To</h2>
+
+  <p><%= @event.end.to_s(:long) %></p>
+
+  <h2>Who is attending?</h2>
+  <% if @event.users.any? %>
+      <ul>
+        <% @event.users.each do |u| %>
+            <li><%= link_to u.name, u %></li>
+        <% end %>
+      </ul>
+  <% else %>
+      <p>No user has joined yet</p>
+  <% end %>
+
+  <p class="well col-md-5">
+    <%= @event.description %>
+  </p>
+
+
+</div>

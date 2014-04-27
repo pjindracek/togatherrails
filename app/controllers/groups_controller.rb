@@ -1,6 +1,7 @@
 class GroupsController < ApplicationController
   before_action :set_group_for_user, only: [:show, :register, :unregister]
   before_action :set_group_for_admin, only: [:edit, :update, :destroy]
+  before_action :reference_data, only: [:new, :create, :edit, :update]
   before_action :authenticate_user!
 
   def show
@@ -9,7 +10,6 @@ class GroupsController < ApplicationController
 
   def new
     @group = Group.new
-    @categories = CategoryEnum.categories
   end
 
   def create
@@ -23,7 +23,6 @@ class GroupsController < ApplicationController
   end
 
   def edit
-    @categories = CategoryEnum.categories
   end
 
   def update
@@ -72,5 +71,9 @@ class GroupsController < ApplicationController
 
   def find_group_by_id
     Group.find(params[:id])
+  end
+
+  def reference_data
+    @categories = CategoryEnum.categories
   end
 end

@@ -1,13 +1,16 @@
-<h2>Profile of user <strong><%= current_user.name %></strong></h2>
+<h1>Profile of user <strong><%= current_user.name %></strong></h1>
+<div>
+  <h2>User since</h2>
+  <p><%= @user.created_at.to_formatted_s :long %></p>
+</div>
+<div>
+  <h2>Bio</h2>
+  <p><%= @user.bio %></p>
+</div>
 
 <% unless @public_user %>
-    <ul>
-      <li><%= link_to 'Edit profile', edit_user_registration_path %></li>
-      <li><%= link_to 'Set up new group', new_group_path %></li>
-    </ul>
-
     <div>
-      <h3>Administrated groups:</h3>
+      <h2>Administrated groups:</h2>
       <ul>
         <% @groups_admin.each do |group| %>
             <li><%= link_to group.name, group %></li>
@@ -15,11 +18,10 @@
       </ul>
     </div>
 <% end %>
-
 <div>
-  <h3>All groups:</h3>
+  <h2>All groups</h2>
   <ul>
-    <% @groups_all.each do |group| %>
+    <% @user.groups.each do |group| %>
         <li><%= link_to group.name, group %></li>
     <% end %>
   </ul>

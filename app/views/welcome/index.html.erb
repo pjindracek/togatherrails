@@ -1,20 +1,33 @@
-<h2>Welcome#index</h2>
-<p>Find me in app/views/welcome/index.html.erb</p>
-
-<div>
-  <%= form_tag search_path, :method => 'get' do %>
-      <p>
-        <%= text_field_tag :q %>
-        <%= submit_tag 'Search', :name => nil %>
-      </p>
-  <% end %>
+<div class="jumbotron">
+  <h1>ToGather</h1>
+  <p style="text-align: justify">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vitae risus vulputate,
+    condimentum sem a, aliquet mi. Sed molestie, nunc eu auctor ultrices, sapien odio imperdiet purus, at
+    consectetur orci massa eu eros. Mauris ultricies ligula ut nunc egestas, id auctor quam bibendum. Integer at
+    suscipit elit. Donec faucibus tellus in eleifend sollicitudin. Integer turpis massa, lobortis sit amet tellus ac,
+    luctus mattis neque. Duis vitae posuere elit.
+  </p>
 </div>
 
 <div>
-  <h3>Groups</h3>
-  <ul>
-    <% @groups.last(3).each do |group| %>
-      <li><%= link_to group.name, group %></li>
-    <% end %>
-  </ul>
+  <h2>Recently added groups</h2>
+</div>
+<div>
+  <% @groups.last(3).each do |group| %>
+      <div class="panel panel-default" style="width: 30%; float: left; margin: 1.6%">
+        <div class="panel-heading">
+          <h3><%= link_to group.name, group %></h3>
+        </div>
+        <div class="panel-body">
+          <h4>Category:</h4>
+          <p><%= group.category_label %></p>
+          <h4>Motto of this group:</h4>
+          <p><%= link_to group.motto, group %></p>
+          <h4>Members already joined:</h4>
+          <p><%= group.members_count %></p>
+        </div>
+      </div>
+  <% end %>
+</div>
+
 </div>
