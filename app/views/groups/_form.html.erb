@@ -27,7 +27,7 @@
       <div class="form-group">
         <%= f.label :category, class: 'col-sm-2 control-label' %>
         <div class="col-md-4">
-          <%= f.select :category, options_for_select(@categories.collect { |c| [c[:label], c[:symbol]] }, selected: f.object.category), {}, {class: 'form-control'} %>
+          <%= f.select :category, options_for_select(@categories.collect { |c| [c[0].humanize, c[0]] }, selected: f.object.category), {}, {class: 'form-control'} %>
         </div>
       </div>
       <div class="form-group">

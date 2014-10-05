@@ -74,6 +74,6 @@ class GroupsController < ApplicationController
   end
 
   def reference_data
-    @categories = CategoryEnum.categories
+    @categories = Group.categories
   end
 end

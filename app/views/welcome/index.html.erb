@@ -1,30 +1,32 @@
-<div class="jumbotron">
-  <h1>ToGather</h1>
-  <p>
-    ToGather is here to provide you connection with like-minded people in this fast moving and anonymous age.
-    If you have ever dreamed about meeting new people with same interests and hobbies to discuss whatever you are
-    up to, you are on the right place. Just start with the "search" button or pick one of the latest groups below.
-    Have a good time together!
-  </p>
-</div>
+<div class="container">
+    <div class="jumbotron">
+      <h1>ToGather</h1>
+      <p>
+        ToGather is here to provide you connection with like-minded people in this fast moving and anonymous age.
+        If you have ever dreamed about meeting new people with same interests and hobbies to discuss whatever you are
+        up to, you are on the right place. Just start with the "search" button or pick one of the latest groups below.
+        Have a good time together!
+      </p>
+    </div>
 
-<div>
-  <h2>Recently added groups</h2>
-</div>
-<div>
-  <% @groups.last(3).each do |group| %>
-      <div class="panel panel-default" style="width: 30%; float: left; margin: 1.6%">
-        <div class="panel-heading">
-          <h3><%= link_to group.name, group %></h3>
-        </div>
-        <div class="panel-body">
-          <h4>Category:</h4>
-          <p><%= group.category_label %></p>
-          <h4>Motto of this group:</h4>
-          <p><%= link_to group.motto, group %></p>
-          <h4>Members already joined:</h4>
-          <p><%= group.members_count %></p>
-        </div>
-      </div>
-  <% end %>
+    <div>
+      <h2>Recently added groups</h2>
+    </div>
+    <div>
+      <% @groups.last(3).each do |group| %>
+          <div class="panel panel-default" style="width: 30%; float: left; margin: 1.6%">
+            <div class="panel-heading">
+              <h3><%= link_to group.name, group %></h3>
+            </div>
+            <div class="panel-body">
+              <h4>Category:</h4>
+              <p><%= group.category.humanize %></p>
+              <h4>Motto of this group:</h4>
+              <p><%= link_to group.motto, group %></p>
+              <h4>Members already joined:</h4>
+              <p><%= group.members_count %></p>
+            </div>
+          </div>
+      <% end %>
+    </div>
 </div>

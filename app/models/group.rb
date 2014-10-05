@@ -6,17 +6,7 @@ class Group < ActiveRecord::Base
 
   validates :name, presence: true
 
-  def category
-    CategoryEnum[self[:category]] if self[:category].present?
-  end
-
-  def category=(symbol)
-    super((CategoryEnum.index(symbol.to_sym)).to_i)
-  end
-
-  def category_label
-    CategoryEnum.label self.category if self.category.present?
-  end
+  enum category: [:culture, :business, :sport, :social, :family, :religion, :food, :technology, :hobbies, :pets]
 
   def add_user(user)
     users << user
