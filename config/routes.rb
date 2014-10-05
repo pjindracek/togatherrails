@@ -4,14 +4,14 @@ Togather::Application.routes.draw do
 
   devise_for :users, skip: :registrations
   devise_scope :user do # will disable cancelling the account
-  resource :registration,
+    resource :registration,
              only: [:new, :create, :edit, :update],
              path: 'users',
              path_names: { new: 'sign_up' },
              controller: 'devise/registrations',
              as: :user_registration do
-              get :cancel
-             end
+      get :cancel
+    end
   end
 
   root to: 'welcome#index'
