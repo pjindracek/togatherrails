@@ -5,6 +5,7 @@ class Group < ActiveRecord::Base
   has_many :events, dependent: :delete_all
 
   validates :name, presence: true
+  validates :motto, presence: true
 
   enum category: [:culture, :business, :sport, :social, :family, :religion, :food, :technology, :hobbies, :pets]
 

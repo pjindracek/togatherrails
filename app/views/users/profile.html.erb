@@ -1,4 +1,4 @@
-<h1>Profile of user <strong><%= current_user.name %></strong></h1>
+<h1>Profile of user <strong><%= @user.name %></strong></h1>
 <div>
   <h2>User since</h2>
   <p><%= @user.created_at.to_formatted_s :long %></p>

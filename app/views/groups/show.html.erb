@@ -20,7 +20,7 @@
     <% elsif !@group.is_admin? current_user %>
         <p><%= link_to 'Leave group', unregister_path(@group), method: :post %></p>
     <% else %>
-        <p><%= link_to 'Delete the group', @group, onclick: 'alert("Careful! You will delete the entire group!")', method: :delete %></p>
+        <p><%= link_to 'Delete the group', @group, method: :delete, data: {confirm: 'Careful! You will delete the entire group!'} %></p>
     <% end %>
 
     <h2>Members</h2>

@@ -40,7 +40,7 @@ class GroupsController < ApplicationController
 
   def register
     if @group.add_user current_user
-      redirect_to profile_path, notice: "Yay! You are a member of #{@group.name} now."
+      redirect_to group_path, notice: "Yay! You are a member of #{@group.name} now."
     else
       redirect_to group_path, alert: "Error occurred. You are already a member of #{@group.name}!"
     end
@@ -48,7 +48,7 @@ class GroupsController < ApplicationController
 
   def unregister
     @group.remove_user current_user
-    redirect_to profile_path, notice: "You've just left #{@group.name}"
+    redirect_to group_path, notice: "You've just left #{@group.name}"
   end
 
   def search
